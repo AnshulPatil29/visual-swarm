@@ -4,12 +4,22 @@
 
 Visual Swarm makes it easy to not only *run* PSO but to *see* it in action. It's designed for researchers, students, and developers who want to gain an intuitive understanding of how swarms explore a search space.
 
-![2D Animation GIF]()
+![2D Animation GIF](https://github.com/AnshulPatil29/visual-swarm/blob/main/assets/2d_animation.gif)
 > ! The constraint line in blue has been added by editing the generated videp and is not available through code.
 > The constraints may take form that I cannot account for when coding the visualization function  
 
-
 ---
+### Table of Contents
+
+- [Key Features](#key-features)
+- [Installation](#installation)
+- [Quick Start: 2D Optimization](#quick-start-2d-optimization)
+- [Advanced Usage](#advanced-usage)
+  - [Saving an Animation](#saving-an-animation)
+  - [Local Best PSO (lbest)](#local-best-pso-lbest)
+- [AI Assistance](#ai-assistance)
+- [License](#license)
+
 
 ### Key Features
 
@@ -113,6 +123,18 @@ pso_local = ParticleSwarm(
     neighborhood_size=5       # Define how many neighbors to consider
 )
 ```
+---
+
+### AI Assistance
+
+To enhance productivity and ensure high-quality documentation, this project utilized AI assistance (via Google's Gemini) for the following specific tasks:
+
+*   Generating initial docstrings based on function signatures.
+*   Creating boilerplate for test case scenarios.
+*   Refining grammar and phrasing in the documentation.
+
+The core algorithmic logic, class structure, and final implementation were developed entirely by the author.
+
 
 ### License
 
