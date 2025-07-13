@@ -134,7 +134,7 @@ To enhance productivity and ensure high-quality documentation, this project util
 *   Refining grammar and phrasing in the documentation.
 
 The core algorithmic logic, class structure, and final implementation were developed entirely by the author.
-
+To gain insights in the learning/development process, my notes are available at [Notes](https://github.com/AnshulPatil29/Notes/blob/main/PSO.md)
 
 ### License
 
