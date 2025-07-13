@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "visual-swarm"
+version = "0.1.0"
+authors = [
+  { name="Anshul Patil", email="Aaprocks29@gmail.com" },
+]
+description = "A PSO library with a focus on visualization."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy>=1.21, <2",
+    "matplotlib>=3.5, <4"
+]
