@@ -4,7 +4,7 @@
 
 Visual Swarm makes it easy to not only *run* PSO but to *see* it in action. It's designed for researchers, students, and developers who want to gain an intuitive understanding of how swarms explore a search space.
 
-![2D Animation GIF](https://github.com/AnshulPatil29/visual-swarm/blob/main/assets/2d_animation.gif)
+![2D Animation GIF](https://raw.githubusercontent.com/AnshulPatil29/visual-swarm/refs/heads/main/assets/2d_animation.gif)
 > ! The constraint line in blue has been added by editing the generated videp and is not available through code.
 > The constraints may take form that I cannot account for when coding the visualization function  
 
@@ -47,7 +47,7 @@ choco install ffmpeg
 Once FFmpeg is installed, you can install Visual Swarm and its dependencies:
 
 There are two ways to install Visual Swarm:
-**1. For Development (Recommended):**
+**1. For Development :**
 ```bash
 # Clone the repository and install in editable mode for development
 git clone https://github.com/AnshulPatil29/visual-swarm.git
@@ -55,8 +55,7 @@ cd visual-swarm
 pip install -e .
 ```
 
-**1. For Development (Recommended):**
-Once available on the Python Package Index (PyPI), you can install it directly with pip.
+**2. For General Use :**
 ```bash
 pip install visual-swarm
 ```
@@ -133,7 +132,8 @@ To enhance productivity and ensure high-quality documentation, this project util
 *   Creating boilerplate for test case scenarios.
 *   Refining grammar and phrasing in the documentation.
 
-The core algorithmic logic, class structure, and final implementation were developed entirely by the author.
+While AI tools helped with documentation, all core algorithmic logic, class structure, and final implementation were authored independently by the project maintainer.  
+
 To gain insights in the learning/development process, my notes are available at [Notes](https://github.com/AnshulPatil29/Notes/blob/main/PSO.md)
 
 ### License
