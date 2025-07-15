@@ -109,6 +109,16 @@ pso.create_animation(
 )
 ```
 
+You can save animations directly to a file. The library supports `.mp4`, `.gif`, and self-contained `.html` formats.
+
+*   **MP4:** Requires **FFmpeg** to be installed on your system. If FFmpeg is not found, the library will automatically fall back to saving an `.html` file.
+*   **HTML:** Works out-of-the-box with no extra dependencies. The file can be opened in any web browser.
+*   **GIF:** To enable GIF support, you must install the library with the `[gif]` extra:
+    ```bash
+    pip install "visual-swarm[gif]"
+    ```
+
+
 #### Local Best PSO (lbest)
 
 To help avoid premature convergence on complex problems, you can use the local best topology. Each particle is influenced by the best particle in its immediate neighborhood, not the entire swarm.

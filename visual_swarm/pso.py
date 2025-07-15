@@ -2,20 +2,30 @@ import numpy as np
 from typing import Callable, List, Union
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from matplotlib.animation import FFMpegWriter
 from mpl_toolkits.mplot3d import Axes3D
 import os
 from pathlib import Path
 
-def validate_save_path(path_str):
-    path=Path(path_str)
-    if path.suffix.lower()!=".mp4":
-        return False,"The file must have an .mp4 extension."
+def validate_save_path(path_str:str) -> tuple[bool,str]:
+    """
+    Validates the save path for an animation.
+    Checks for valid extension, directory existence, and write permissions.
+    Args:
+        path_str (str): The path to validate.
+    Returns:
+        (bool, str): A tuple containing a boolean for validity and a message.
+    """
+    supported_formats=['.mp4', '.gif', '.html']
+    path = Path(path_str)
+    if path.suffix.lower() not in supported_formats:
+        return False, f"Unsupported format '{path.suffix}'. Please use one of {supported_formats}."
     if not path.parent.exists():
-        return False,f"Directory does not exist: {path.parent}"
+        return False, f"Directory '{path.parent}' does not exist."
     if path.exists():
-        return False,f"File already exists: {path}. Choose a different name or delete it."
-    if not os.access(path.parent,os.W_OK):
-        return False,f"Cannot write to directory: {path.parent}"
+        return False, f"File '{path}' already exists. Please choose a different name or delete it."
+    if not os.access(path.parent, os.W_OK):
+        return False, f"Cannot write to directory '{path.parent}' due to permissions."
     return True,"Valid path."
 
 class ParticleSwarm:
@@ -416,6 +426,8 @@ class ParticleSwarm:
             matplotlib.animation.FuncAnimation: The generated animation object,
                                                 or None if dimensionality is > 3.
         """
+        assert iterations>=0, "Number of iterations cannot be negative."
+        assert fps>0, "FPS must be a positive integer."
         if self.num_parameters>3:
             print("Animation is only supported for 1, 2, or 3 dimensions.")
             return
@@ -430,15 +442,40 @@ class ParticleSwarm:
             ani=self.__create_2D_animation(iterations,fps,particle_size, show_grid)
         elif self.num_parameters==3:
             # Note: Blitting can be problematic with 3D plots in matplotlib.
-            # It's often disabled for stability. and idk how to make 3d contour grid
+            # It's often disabled for stability. And idk how to make 3d contour grid
             ani=self.__create_3D_animation(iterations,fps,particle_size)
         
         if save:
             is_valid, message = validate_save_path(save_path)
-            if is_valid:
-                print(f"Saving animation to {save_path}...")
-                ani.save(save_path, writer="ffmpeg", fps=fps)
-                print("Save complete.")
-            else:
-                print(f"Warning: Invalid save path. {message}")
+            if not is_valid:
+                print(f"Error: Could not save animation. {message}")
+                return ani
+
+            output_path = Path(save_path)
+            file_suffix = output_path.suffix.lower()
+
+            try:
+                if file_suffix == '.mp4':
+                    if FFMpegWriter.isAvailable():
+                        print(f"Saving MP4 animation to {output_path} (using FFmpeg)...")
+                        ani.save(str(output_path),writer='ffmpeg',fps=fps)
+                        print("Save complete.")
+                    else:
+                        html_path = output_path.with_suffix('.html')
+                        print("Warning: FFmpeg is not installed. Cannot save as .mp4.")
+                        print(f"Falling back to save as a self-contained HTML file at: {html_path}")
+                        if html_path.exists():
+                             print(f"Error: Fallback path '{html_path}' also exists. Please clear it and try again.")
+                             return ani
+                        ani.save(str(html_path),writer='html',fps=fps)
+                        print("Save complete. Open the .html file in a web browser.")
+                elif file_suffix=='.gif':
+                    print(f"Saving GIF animation to {output_path} (using Pillow)...")
+                    ani.save(str(output_path),writer='pillow',fps=fps)
+                    print("Save complete.")
+                else: # .html
+                    print(f"Saving HTML animation to {output_path}")
+                    ani.save(str(output_path),writer='html',fps=fps)
+            except Exception as e:
+                print(f"An error occurred while saving the animation: {e}")
         return ani
